@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 16:30:40 by edal--ce          #+#    #+#             */
-/*   Updated: 2021/07/29 17:25:20 by edal--ce         ###   ########.fr       */
+/*   Updated: 2021/07/29 18:29:33 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	main(int argc, char const *argv[])
 	i = 0;
 	pid = ft_atoi(argv[1]);
 	len = ft_strlen(argv[2]);
-	while (i < len)
+	while (i <= len + 1)
 		send_char(pid, argv[2][i++]);
 	return (0);
 }
