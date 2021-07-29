@@ -6,12 +6,13 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 16:30:07 by edal--ce          #+#    #+#             */
-/*   Updated: 2021/07/29 17:10:16 by edal--ce         ###   ########.fr       */
+/*   Updated: 2021/07/29 17:25:15 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "server.h"
+
 #include <stdio.h>
 #include <signal.h>
+#include <unistd.h>
 
 #define ZERO	SIGUSR1
 #define ONE		SIGUSR2
@@ -49,10 +50,7 @@ void	receivetest2(int i)
 
 int	main(void)
 {
-	pid_t	pid;
-
-	pid = getpid();
-	printf("Server pid %d\n", pid);
+	printf("Server pid : %d", getpid());
 	signal(SIGUSR1, &receivetest1);
 	signal(SIGUSR2, &receivetest2);
 	while (1)

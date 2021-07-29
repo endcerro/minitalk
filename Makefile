@@ -17,22 +17,25 @@ DIRSRC		=	src
 OBJD		=	obj
 INCLUDE		=	incl
 
-SRC			=	
+SRC			=	serv_main.c \
+				client_main.c
 
 OBJ			=	$(SRC:.c=.o)
 OBJS		=	$(OBJ:%=$(OBJD)/%)
 
-CFLAGS		= 	-Wall -Wextra -g -fsanitize=address #-Werror 
+CFLAGS		= 	-Wall -Wextra -Werror #-g -fsanitize=address  
 
 CC			=	clang
 RM			=	rm -f
 ECHO		=	echo
 
-$(NAME)		:	$(LIB) $(OBJD) $(OBJS) 
-				$(CC) -I ./$(INCLUDE) $(CFLAGS) serv_main.c -o $(NAME) 
+all			:	$(NAME) $(NAME2)
 
-$(NAME2)		:	$(LIB) $(OBJD) $(OBJS)
-				$(CC) -I ./$(INCLUDE) $(CFLAGS) client_main.c -o $(NAME2) 
+$(NAME)		:	$(LIB) $(OBJD) $(OBJS) 
+				$(CC) -I ./$(INCLUDE) $(CFLAGS) $(OBJD)/serv_main.o -o $(NAME) 
+
+$(NAME2)	:	$(LIB) $(OBJD) $(OBJS)
+				$(CC) -I ./$(INCLUDE) $(CFLAGS) $(OBJD)/client_main.o -o $(NAME2) 
 
 
 $(OBJD)		:
@@ -40,9 +43,6 @@ $(OBJD)		:
 
 $(OBJD)/%.o	:	$(DIRSRC)/%.c
 				$(CC) -I ./$(INCLUDE) $(CFLAGS) -o $@ -c $<
-
-
-all			:	$(NAME) $(NAME2)
 
 clean		:
 				$(RM) $(OBJS)
@@ -54,4 +54,4 @@ bonus		:	all
 
 re			:	fclean all
 
-.PHONY		:	all clean re fclean $(NAME) $(NAME2)
+.PHONY		:	all clean re fclean
