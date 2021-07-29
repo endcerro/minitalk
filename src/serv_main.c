@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 16:30:07 by edal--ce          #+#    #+#             */
-/*   Updated: 2021/07/29 17:25:15 by edal--ce         ###   ########.fr       */
+/*   Updated: 2021/07/29 18:21:49 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	receivetest2(int i)
 
 int	main(void)
 {
-	printf("Server pid : %d", getpid());
+	printf("Server pid : %d\n", getpid());
 	signal(SIGUSR1, &receivetest1);
 	signal(SIGUSR2, &receivetest2);
 	while (1)

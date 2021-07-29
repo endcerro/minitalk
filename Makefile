@@ -17,13 +17,22 @@ DIRSRC		=	src
 OBJD		=	obj
 INCLUDE		=	incl
 
-SRC			=	serv_main.c \
-				client_main.c
+CSRC		=	client_main.c
+
+SSRC		=	serv_main.c 
 
 OBJ			=	$(SRC:.c=.o)
 OBJS		=	$(OBJ:%=$(OBJD)/%)
 
-CFLAGS		= 	-Wall -Wextra -Werror #-g -fsanitize=address  
+
+COBJ			=	$(CSRC:.c=.o)
+COBJS			=	$(COBJ:%=$(OBJD)/%)
+
+
+SOBJ			=	$(SSRC:.c=.o)
+SOBJS			=	$(SOBJ:%=$(OBJD)/%)
+
+CFLAGS		= 	-Wall -Wextra -Werror
 
 CC			=	clang
 RM			=	rm -f
@@ -31,10 +40,10 @@ ECHO		=	echo
 
 all			:	$(NAME) $(NAME2)
 
-$(NAME)		:	$(LIB) $(OBJD) $(OBJS) 
+$(NAME)		:	$(LIB) $(OBJD) $(SOBJS) 
 				$(CC) -I ./$(INCLUDE) $(CFLAGS) $(OBJD)/serv_main.o -o $(NAME) 
 
-$(NAME2)	:	$(LIB) $(OBJD) $(OBJS)
+$(NAME2)	:	$(LIB) $(OBJD) $(COBJS)
 				$(CC) -I ./$(INCLUDE) $(CFLAGS) $(OBJD)/client_main.o -o $(NAME2) 
 
 
@@ -45,7 +54,7 @@ $(OBJD)/%.o	:	$(DIRSRC)/%.c
 				$(CC) -I ./$(INCLUDE) $(CFLAGS) -o $@ -c $<
 
 clean		:
-				$(RM) $(OBJS)
+				$(RM) -rf $(OBJD)/
 
 fclean		:	clean
 				$(RM) -rf $(NAME) $(NAME2) 
