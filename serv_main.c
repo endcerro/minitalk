@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 16:30:07 by edal--ce          #+#    #+#             */
-/*   Updated: 2021/07/29 17:00:49 by edal--ce         ###   ########.fr       */
+/*   Updated: 2021/07/29 17:10:16 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "server.h"
@@ -16,7 +16,7 @@
 #define ZERO	SIGUSR1
 #define ONE		SIGUSR2
 
-void	receivetest(int t)
+int	receivetest(int t)
 {
 	static unsigned int	amt = 0;
 	static unsigned int	rev_c = 0;
@@ -32,16 +32,19 @@ void	receivetest(int t)
 	else
 		rev_c = (rev_c << 1);
 	++amt;
+	return (0);
 }
 
-void	receivetest1(void)
+void	receivetest1(int i)
 {
-	receivetest(1);
+	i = 1;
+	receivetest(i);
 }
 
-void	receivetest2(void)
+void	receivetest2(int i)
 {
-	receivetest(0);
+	i = 0;
+	receivetest(i);
 }
 
 int	main(void)
