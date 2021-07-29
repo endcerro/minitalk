@@ -54,4 +54,4 @@ bonus		:	all
 
 re			:	fclean all
 
-.PHONY		:	all clean re fclean $(NAME)
+.PHONY		:	all clean re fclean $(NAME) $(NAME2)
