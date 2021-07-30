@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 16:30:40 by edal--ce          #+#    #+#             */
-/*   Updated: 2021/07/30 17:02:38 by edal--ce         ###   ########.fr       */
+/*   Updated: 2021/07/30 17:22:52 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@ int	ft_atoi(const char *in)
 	while (*in == ' ' || *in == '	' || *in == '\n'
 		|| *in == '\t' || *in == '\v' || *in == '\f' || *in == '\r')
 		in++;
-	if (*in == '-')
-	{
+	if (*in == '-' && ++in)
 		pos = -1;
-		in++;
-	}
 	else if (*in == '+')
 		in++;
 	while (*in && *in < 58 && *in > 47)
@@ -46,28 +43,34 @@ unsigned int	ft_strlen(const char *str)
 	return (i);
 }
 
-void	send_char(int pid, char c)
+int	send_char(int pid, char c)
 {
 	unsigned char	mask;
-	unsigned int	i;
+	int				i;
 
-	i = 0;
+	i = -1;
 	mask = 0b10000000;
-	while (i < 8)
+	while (++i < 8)
 	{
 		if (c & mask)
-			kill(pid, SIGUSR1);
+		{
+			if (kill(pid, SIGUSR1) == -1)
+				return (write(1, "Bad PID !\n", 10));
+		}
 		else
-			kill(pid, SIGUSR2);
+		{
+			if (kill(pid, SIGUSR2) == -1)
+				return (write(1, "Bad PID !\n", 10));
+		}
 		usleep(100);
 		c = c << 1;
-		++i;
 	}
+	return (0);
 }
 
 void	done(int i)
 {
-	i = 1;
+	(void)i;
 	write(1, "Message received\n", 17);
 }
 
@@ -81,9 +84,11 @@ int	main(int argc, char const *argv[])
 		return (write(1, "usage : ./client [PID] [MESSAGE]\n", 33));
 	i = 0;
 	signal(SIGUSR1, &done);
-	pid = ft_atoi(argv[1]);
+	if ((pid = ft_atoi(argv[1])) == 0)
+		write(1, "Bad PID !\n", 10);
 	len = ft_strlen(argv[2]);
-	while (i <= len)
-		send_char(pid, argv[2][i++]);
+	while (pid && i <= len)
+		if (send_char(pid, argv[2][i++]))
+			return (1);
 	return (0);
 }
