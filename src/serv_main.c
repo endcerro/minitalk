@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 16:30:07 by edal--ce          #+#    #+#             */
-/*   Updated: 2021/07/29 18:29:24 by edal--ce         ###   ########.fr       */
+/*   Updated: 2021/07/30 15:26:54 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,20 @@
 int	receivetest(int t)
 {
 	static unsigned int	amt = 0;
-	static unsigned int	rev_c = 0;
+	static char rev_c = 0;
 
+	
+	if (t == 1)
+		rev_c = (rev_c << 1) + 1;
+	else
+		rev_c = (rev_c << 1);
+	++amt;
 	if (amt == 8)
 	{
 		write(1, &rev_c, 1);
 		amt = 0;
 		rev_c = 0;
 	}
-	if (t == 1)
-		rev_c = (rev_c << 1) + 1;
-	else
-		rev_c = (rev_c << 1);
-	++amt;
 	return (0);
 }
 

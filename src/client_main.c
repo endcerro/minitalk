@@ -6,11 +6,12 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 16:30:40 by edal--ce          #+#    #+#             */
-/*   Updated: 2021/07/29 18:29:33 by edal--ce         ###   ########.fr       */
+/*   Updated: 2021/07/30 15:27:59 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
+#include <stdio.h>
 #include <unistd.h>
 
 int	ft_atoi(const char *in)
@@ -53,7 +54,7 @@ int	usage(void)
 
 void	send_char(int pid, char c)
 {
-	unsigned char	mask;
+	char	mask;
 	unsigned int	i;
 
 	i = 0;
@@ -81,7 +82,7 @@ int	main(int argc, char const *argv[])
 	i = 0;
 	pid = ft_atoi(argv[1]);
 	len = ft_strlen(argv[2]);
-	while (i <= len + 1)
+	while (i < len)
 		send_char(pid, argv[2][i++]);
 	return (0);
 }
