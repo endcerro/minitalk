@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 16:30:40 by edal--ce          #+#    #+#             */
-/*   Updated: 2021/07/30 17:22:52 by edal--ce         ###   ########.fr       */
+/*   Updated: 2021/07/30 17:24:45 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int	main(int argc, char const *argv[])
 		return (write(1, "usage : ./client [PID] [MESSAGE]\n", 33));
 	i = 0;
 	signal(SIGUSR1, &done);
-	if ((pid = ft_atoi(argv[1])) == 0)
+	pid = ft_atoi(argv[1]);
+	if (pid == 0)
 		write(1, "Bad PID !\n", 10);
 	len = ft_strlen(argv[2]);
 	while (pid && i <= len)
