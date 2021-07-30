@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 16:30:40 by edal--ce          #+#    #+#             */
-/*   Updated: 2021/07/30 15:27:59 by edal--ce         ###   ########.fr       */
+/*   Updated: 2021/07/30 16:58:43 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ void	send_char(int pid, char c)
 	}
 }
 
+void done(int i)
+{
+	i = 1;
+	write(1, "Message received\n", 17);
+}
+
 int	main(int argc, char const *argv[])
 {
 	int				pid;
@@ -80,9 +86,10 @@ int	main(int argc, char const *argv[])
 	if (argc != 3)
 		return (usage());
 	i = 0;
+	signal(SIGUSR1, &done);
 	pid = ft_atoi(argv[1]);
 	len = ft_strlen(argv[2]);
-	while (i < len)
+	while (i <= len)
 		send_char(pid, argv[2][i++]);
 	return (0);
 }
