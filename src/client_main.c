@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 16:30:40 by edal--ce          #+#    #+#             */
-/*   Updated: 2021/07/30 16:58:43 by edal--ce         ###   ########.fr       */
+/*   Updated: 2021/07/30 17:02:38 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,9 @@ unsigned int	ft_strlen(const char *str)
 	return (i);
 }
 
-int	usage(void)
-{
-	write(1, "usage : ./client [PID] [MESSAGE]\n", 33);
-	return (1);
-}
-
 void	send_char(int pid, char c)
 {
-	char	mask;
+	unsigned char	mask;
 	unsigned int	i;
 
 	i = 0;
@@ -71,7 +65,7 @@ void	send_char(int pid, char c)
 	}
 }
 
-void done(int i)
+void	done(int i)
 {
 	i = 1;
 	write(1, "Message received\n", 17);
@@ -84,7 +78,7 @@ int	main(int argc, char const *argv[])
 	unsigned int	i;
 
 	if (argc != 3)
-		return (usage());
+		return (write(1, "usage : ./client [PID] [MESSAGE]\n", 33));
 	i = 0;
 	signal(SIGUSR1, &done);
 	pid = ft_atoi(argv[1]);

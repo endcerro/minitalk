@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 16:30:07 by edal--ce          #+#    #+#             */
-/*   Updated: 2021/07/30 16:59:21 by edal--ce         ###   ########.fr       */
+/*   Updated: 2021/07/30 17:01:25 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 void	receive(int sig, siginfo_t *info, void *context)
 {
 	static unsigned int	amt = 0;
-	static char rev_c = 0;
+	static char			rev_c = 0;
 
 	(void)context;
 	if (sig == SIGUSR1)
@@ -40,14 +40,14 @@ void	receive(int sig, siginfo_t *info, void *context)
 
 int	main(void)
 {
-	struct sigaction one;
+	struct sigaction	sig;
 
-	one.sa_sigaction = receive;
-	one.sa_flags = SA_SIGINFO;
+	sig.sa_sigaction = receive;
+	sig.sa_flags = SA_SIGINFO;
 	printf("Server pid : %d\n", getpid());
-	if (sigaction(SIGUSR1, &one, NULL) != 0)
+	if (sigaction(SIGUSR1, &sig, NULL) != 0)
 		return (write (1, "signal error\n", 13));
-	if (sigaction(SIGUSR2, &one, NULL) != 0)
+	if (sigaction(SIGUSR2, &sig, NULL) != 0)
 		return (write (1, "signal error\n", 13));
 	while (1)
 		pause();
